@@ -49,8 +49,8 @@ async function main() {
   const csvPath = path.join(process.cwd(), 'public', 'test.csv')
   const csvContent = await readFile(csvPath, 'utf-8')
 
-  const parsed = Papa.parse(csvContent, { header: false })
-  const headers = parsed.data[0] as string[]
+  const firstLine = csvContent.split('\n')[0]
+  const headers = firstLine.split(',').map(h => h.trim())
 
   if (!headers || headers.length === 0) {
     console.error('Keine Header gefunden')
